@@ -1,0 +1,36 @@
+import re
+from urlparse import urlparse
+import json
+url = ''
+adware_lines = ''
+other_lines = ''
+adwareWin32_lines = ''
+res_dict = {}
+
+f = open ('test1.txt','r')
+a = open ('e:\Adware.txt','w')
+b = open ('e:\AdwareWin32.txt','w')
+c = open ('e:\Other.txt','w')
+for line in f.readlines():
+  items = line.split(',')
+  if items[5].startswith('AdWare'):
+    adware_lines += '%s \n' %line
+    if 'AdWare/Win32' in items[5] :
+      adwareWin32_lines += '%s \n' %line.strip()
+  else:
+    url_str = items[1]
+    url = urlparse (url_str)
+    if not res_dict.has_key(url.hostname):
+      res_dict[url.hostname] = {url_str: [items[8].strip(), items[5]]}
+    else:
+      res_dict[url.hostname][url_str] = [items[8].strip(), items[5]]
+    json.dump(res_dict, c, indent = 4 ,separators = (',',':'))
+    print res_dict
+
+a.write(adware_lines)
+b.write(adwareWin32_lines)
+
+f.close()
+a.close()
+b.close()
+c.close()
