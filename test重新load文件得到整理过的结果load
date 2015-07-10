@@ -1,0 +1,24 @@
+'''
+  Created on 2015-07-10
+  @author:Luckyjo
+'''
+
+import json
+
+f = open ('result1.txt','rb')
+a = open ('load.txt','wb')
+s = json.load(f)
+value = []
+res = ''
+for line in s:
+    value.append(line.values())
+for lines in value:
+    values = []
+    for j in lines:
+        values.append(unicode.encode(j))
+    res += ','.join(values)+'\n'
+#print res
+a.write(res)
+f.close()
+a.close()
+print 'Here is end'
