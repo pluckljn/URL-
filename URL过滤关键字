@@ -24,9 +24,9 @@ for line in f.readlines():
       res_dict[url.hostname] = {url_str: [items[8].strip(), items[5]]}
     else:
       res_dict[url.hostname][url_str] = [items[8].strip(), items[5]]
-    json.dump(res_dict, c, indent = 4 ,separators = (',',':'))
-    print res_dict
 
+    print res_dict
+json.dump(res_dict, c, indent = 4 ,separators = (',',':'))
 a.write(adware_lines)
 b.write(adwareWin32_lines)
 
